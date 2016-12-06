@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0"
-            xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.Controller">
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.Controller">
 
     <children>
         <MenuBar fx:id="menuBar" prefWidth="1000">
@@ -13,30 +13,28 @@
                     <items>
                         <MenuItem onAction="#exit" text="Exit">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
                 </Menu>
                 <Menu text="Edit">
                     <items>
-                        <MenuItem text="Find">
+                        <MenuItem onAction="#find" text="Find">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <TextField fx:id="inputField" layoutX="10.0" layoutY="35.0" prefHeight="25.0" prefWidth="875.0"/>
-        <Button layoutX="900.0" layoutY="35.0" mnemonicParsing="false" onAction="#clear" prefWidth="85.0" text="Clear"/>
-        <Button layoutX="10.0" layoutY="75.0" mnemonicParsing="false" onAction="#prettyPrint" prefWidth="150.0"
-                text="Pretty print"/>
-        <Button layoutX="200.0" layoutY="75.0" mnemonicParsing="false" onAction="#prettyPrintAsJson" prefWidth="150.0"
-                text="Pretty print as JSON"/>
-        <TextArea fx:id="outputArea" layoutX="10.0" layoutY="110.0" prefHeight="680.0" prefWidth="980.0"/>
+        <TextField fx:id="inputField" layoutX="10.0" layoutY="35.0" prefHeight="25.0" prefWidth="875.0" />
+        <Button layoutX="900.0" layoutY="35.0" mnemonicParsing="false" onAction="#clear" prefWidth="85.0" text="Clear" />
+        <Button layoutX="10.0" layoutY="75.0" mnemonicParsing="false" onAction="#prettyPrint" prefWidth="150.0" text="Pretty print" />
+        <Button layoutX="200.0" layoutY="75.0" mnemonicParsing="false" onAction="#prettyPrintAsJson" prefWidth="150.0" text="Pretty print as JSON" />
+        <ScrollPane layoutX="10.0" layoutY="110.0" prefHeight="680.0" prefWidth="980.0">
+            <TextFlow fx:id="outputArea" layoutX="10.0" layoutY="110.0" prefHeight="675.0" prefWidth="970.0" style="-fx-background-color: white;" />
+        </ScrollPane>
     </children>
 </AnchorPane>
