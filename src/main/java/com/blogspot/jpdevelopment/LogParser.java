@@ -5,12 +5,12 @@ package com.blogspot.jpdevelopment;
 
 import java.util.*;
 
-public class Parser {
+public class LogParser {
 	
 	private static final String TOKENIZE_CHARS = "\\{\\}\\[\\]\\,";
 	private final String text;
 	
-	public Parser(String text) {
+	public LogParser(String text) {
 		this.text = text;
 	}
 	

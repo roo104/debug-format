@@ -61,6 +61,12 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>6.1.0.jre8</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>azure-keyvault</artifactId>
+                    <groupId>com.microsoft.azure</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

@@ -5,19 +5,16 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.*;
 
-import java.io.*;
-import java.sql.*;
-
 public class Main extends Application {
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, FileNotFoundException {
+	public static void main(String[] args) {
         launch(args);
 	}
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/fxml/ui.fxml"));
-		stage.setTitle("Debug format");
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+		stage.setTitle("Management console");
 		stage.setScene(new Scene(root, 1000, 800));
 		stage.setResizable(false);
 		stage.show();

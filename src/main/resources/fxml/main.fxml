@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.controller.DebugFormatterController">
+
+    <children>
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem onAction="#exit" text="Exit">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu text="Edit">
+                    <items>
+                        <MenuItem onAction="#find" text="Find">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                 prefHeight="400.0"
+                 tabClosingPolicy="UNAVAILABLE">
+
+            <tabs>
+                <Tab text="GTI change status">
+                    <content>
+                        <fx:include fx:id="fooTabPage" source="gti-change-status.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Debug formatter">
+                    <content>
+                        <fx:include fx:id="debugFormatter" source="debug-formatter.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

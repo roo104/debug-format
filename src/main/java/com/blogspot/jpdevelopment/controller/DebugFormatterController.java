@@ -1,5 +1,6 @@
-package com.blogspot.jpdevelopment;
+package com.blogspot.jpdevelopment.controller;
 
+import com.blogspot.jpdevelopment.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -9,7 +10,7 @@ import javafx.scene.text.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class Controller {
+public class DebugFormatterController {
 	
 	@FXML
 	private TextField inputField;
@@ -17,7 +18,7 @@ public class Controller {
 	private TextFlow outputArea;
 	
 	public void prettyPrint(ActionEvent actionEvent) {
-		outputArea.getChildren().add(new Text(new Parser(inputField.getText()).print()));
+		outputArea.getChildren().add(new Text(new LogParser(inputField.getText()).print()));
 	}
 	
 	public void clear(ActionEvent actionEvent) {
@@ -25,7 +26,7 @@ public class Controller {
 	}
 	
 	public void prettyPrintAsJson(ActionEvent actionEvent) {
-		outputArea.getChildren().add(new Text(new Parser(inputField.getText()).printAsJson()));
+		outputArea.getChildren().add(new Text(new LogParser(inputField.getText()).printAsJson()));
 	}
 	
 	public void exit(ActionEvent actionEvent) {
