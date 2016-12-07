@@ -4,6 +4,7 @@
 package com.blogspot.jpdevelopment.gti;
 
 import com.blogspot.jpdevelopment.util.*;
+import com.schantz.toplife.ws.batch.*;
 
 import java.io.*;
 import java.sql.*;
@@ -17,14 +18,14 @@ public class GtiChangeStatus {
 		String sql = "SELECT bjfd_input.uid, bjfd_root.name, bjfd_input.name\n" +
 				"FROM BatchJobFileDir bjfd_root\n" +
 				"LEFT JOIN BatchJobFileDir bjfd_input ON bjfd_root.uid = bjfd_input.parent_uid\n" +
-				"WHERE bjfd_root.name = 'GTISkiftStatus'";
+				"WHERE bjfd_root.name = 'GTISkiftStatus' and bjfd_input.name = 'input'";
 		
 		Connection connection = DriverManager.getConnection(url, "sa", "robertrobot");
 		ResultSet resultSet = connection.createStatement().executeQuery(sql);
 		
 		String parentFolderUid = "";
 		
-		while (resultSet.next()) {
+		if (resultSet.next()) {
 			parentFolderUid = resultSet.getString(1);
 		}
 		String fileContent = createFileContent(gtiIntr, status);
@@ -51,6 +52,11 @@ public class GtiChangeStatus {
 		insertFileStatement.setString(3, parentUid);
 		
 		insertFileStatement.executeUpdate();
+		
+//		Service service = BatchJobServiceService.create(BatchJobServiceService.SERVICE);
+		BatchJobServiceService batchJobServiceService = new BatchJobServiceService();
+		BatchJobService servicePort = batchJobServiceService.getBatchJobServicePort();
+		servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
 	}
 	
 	private String createFileContent(String gtiIntr, String status) {
