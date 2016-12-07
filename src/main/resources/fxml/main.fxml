@@ -38,12 +38,17 @@
             <tabs>
                 <Tab text="GTI change status">
                     <content>
-                        <fx:include fx:id="fooTabPage" source="gti-change-status.fxml"/>
+                        <fx:include fx:id="gtiChangeStatusTab" source="gti-change-status.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="Debug formatter">
                     <content>
-                        <fx:include fx:id="debugFormatter" source="debug-formatter.fxml"/>
+                        <fx:include fx:id="debugFormatterTab" source="debug-formatter.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Settings">
+                    <content>
+                        <fx:include fx:id="settingsTab" source="settings.fxml"/>
                     </content>
                 </Tab>
             </tabs>

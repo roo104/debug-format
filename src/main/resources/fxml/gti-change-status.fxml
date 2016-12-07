@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.blogspot.jpdevelopment.gti.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.controller.GtiStatusController">
    <children>
       <Label layoutX="23.0" layoutY="28.0" text="GTI Interesentnummer" />
       <TextField fx:id="gtiIntr" layoutX="23.0" layoutY="45.0" />
-      <ChoiceBox fx:id="newStatus" layoutX="198.0" layoutY="45.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="newStatus" layoutX="198.0" layoutY="45.0" prefWidth="150.0" >
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <GtiStatus name="Forsvundet" value="04" />
+               <GtiStatus name="Udvandret" value="05" />
+               <GtiStatus name="Afgået ved døden" value="06" />
+               <GtiStatus name="Konkurs" value="11" />
+               <GtiStatus name="Betalingsstandsning" value="12" />
+               <GtiStatus name="Nedlagt Firma" value="13" />
+               <GtiStatus name="Firma Gældssaneret" value="13" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
       <Button fx:id="changeStatusBtn" layoutX="371.0" layoutY="45.0" mnemonicParsing="false" onAction="#changeStatus" text="Skift status" />
       <Label layoutX="198.0" layoutY="28.0" text="Ny status" />
    </children>
