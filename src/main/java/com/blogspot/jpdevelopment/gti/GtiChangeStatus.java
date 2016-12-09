@@ -8,10 +8,14 @@ import com.schantz.toplife.ws.batch.*;
 
 import java.io.*;
 import java.sql.*;
+import java.time.*;
+import java.time.format.*;
 
 public class GtiChangeStatus {
 	
-	public void changeStatus(String gtiIntr, String status) throws Exception {
+	private static String DATE_FORAMT = "yyyyMMdd";
+	
+	public void changeStatus(String gtiIntr, String status, LocalDate date) throws Exception {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
 		String url = "jdbc:sqlserver://localhost:1433;databaseName=TopLife";
@@ -28,38 +32,40 @@ public class GtiChangeStatus {
 		if (resultSet.next()) {
 			parentFolderUid = resultSet.getString(1);
 		}
-		String fileContent = createFileContent(gtiIntr, status);
+		String fileContent = createFileContent(gtiIntr, status, date);
 		
 		
 		String insertDir = "INSERT INTO TopLife.dbo.BatchJobFileDir " +
 				"(DTYPE, uid, createTime, createUser, directory, name, size, zip, batchJobEIOperation_uid, parent_uid) " +
 				"VALUES " +
-				"('BatchJobFileDir', ?, '2016-12-06 16:16:18.3250000', 'admin@schantz.com', 0, ?, ?, 0, null, ?)";
+				"('BatchJobFileDir', ?, ?, 'admin@schantz.com', 0, ?, ?, 0, null, ?)";
 		
 		PreparedStatement statement = connection.prepareStatement(insertDir);
 		String parentUid = Guid.create().toString();
 		statement.setString(1, parentUid);
-		statement.setString(2, System.currentTimeMillis() + ".txt");
-		statement.setInt(3, fileContent.length());
-		statement.setString(4, parentFolderUid);
+		statement.setTimestamp(2, DateUtils.asSqlDateTime(LocalDateTime.now()));
+		statement.setString(3, System.currentTimeMillis() + ".txt");
+		statement.setInt(4, fileContent.length());
+		statement.setString(5, parentFolderUid);
 		
 		statement.executeUpdate();
 		
-		String insertFile = "INSERT INTO TopLife.dbo.BatchJobData (DTYPE, uid, createTime, createUser, data, batchJobFileDir_uid) VALUES ('BatchJobData', ?, '2016-12-06 16:16:18.3400000', 'admin@schantz.com', ?, ?);";
+		String insertFile = "INSERT INTO TopLife.dbo.BatchJobData (DTYPE, uid, createTime, createUser, data, batchJobFileDir_uid) VALUES ('BatchJobData', ?, ?, 'admin@schantz.com', ?, ?);";
 		PreparedStatement insertFileStatement = connection.prepareStatement(insertFile);
 		insertFileStatement.setString(1, Guid.create().toString());
-		insertFileStatement.setBlob(2, new ByteArrayInputStream(fileContent.getBytes()));
-		insertFileStatement.setString(3, parentUid);
+		insertFileStatement.setTimestamp(2, DateUtils.asSqlDateTime(LocalDateTime.now()));
+		insertFileStatement.setBlob(3, new ByteArrayInputStream(fileContent.getBytes()));
+		insertFileStatement.setString(4, parentUid);
 		
 		insertFileStatement.executeUpdate();
 		
-//		Service service = BatchJobServiceService.create(BatchJobServiceService.SERVICE);
 		BatchJobServiceService batchJobServiceService = new BatchJobServiceService();
 		BatchJobService servicePort = batchJobServiceService.getBatchJobServicePort();
 		servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
 	}
 	
-	private String createFileContent(String gtiIntr, String status) {
-		return String.format("%s, ,%s,20161028,20161116", gtiIntr, status);
+	private String createFileContent(String gtiIntr, String status, LocalDate date) {
+		String formattedDate = date.format(DateTimeFormatter.ofPattern(DATE_FORAMT));
+		return String.format("%s, ,%s,%s,%s", gtiIntr, status, formattedDate, formattedDate);
 	}
 }

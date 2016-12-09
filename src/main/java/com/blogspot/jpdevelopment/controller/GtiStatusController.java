@@ -14,9 +14,11 @@ public class GtiStatusController {
 	private TextField gtiIntr;
 	@FXML
 	private ChoiceBox<GtiStatus> newStatus;
+	@FXML
+	private DatePicker date;
 	
 	public void changeStatus(ActionEvent actionEvent) throws Exception {
 		GtiChangeStatus gtiChangeStatus = new GtiChangeStatus();
-		gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue());
+		gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue());
 	}
 }

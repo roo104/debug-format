@@ -51,6 +51,7 @@
               <goal>wsdl2java</goal>
             </goals>
             <configuration>
+              <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
               <wsdlOptions>
                 <wsdlOption>
                   <wsdl>http://localhost:9000/services/toplife/ws/batch/BatchJobServicePort?wsdl</wsdl>
