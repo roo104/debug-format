@@ -24,5 +24,6 @@
       <Button fx:id="changeStatusBtn" layoutX="510.0" layoutY="45.0" mnemonicParsing="false" onAction="#changeStatus" text="Skift status" />
       <Label layoutX="198.0" layoutY="28.0" text="Ny status" />
       <DatePicker fx:id="date" layoutX="361.0" layoutY="45.0" prefHeight="25.0" prefWidth="131.0" />
+      <ProgressBar fx:id="gtiUpdateProgressBar" layoutX="217.0" layoutY="194.0" prefHeight="18.0" prefWidth="450.0" progress="0.0" visible="false" />
    </children>
 </AnchorPane>
