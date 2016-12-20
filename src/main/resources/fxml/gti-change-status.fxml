@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.controller.GtiStatusController">
    <children>
-      <Label layoutX="23.0" layoutY="28.0" text="GTI Interessentnummer" />
-      <TextField fx:id="gtiIntr" layoutX="23.0" layoutY="45.0" />
-      <ChoiceBox fx:id="newStatus" layoutX="196.0" layoutY="45.0" prefWidth="150.0">
+      <Label layoutX="23.0" layoutY="87.0" text="GTI Interessentnummer" />
+      <TextField fx:id="gtiIntr" layoutX="23.0" layoutY="104.0" />
+      <ChoiceBox fx:id="newStatus" layoutX="196.0" layoutY="104.0" prefWidth="150.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <GtiStatus name="Forsvundet" value="04" />
@@ -21,9 +21,9 @@
             </FXCollections>
          </items>
       </ChoiceBox>
-      <Button fx:id="changeStatusBtn" layoutX="510.0" layoutY="45.0" mnemonicParsing="false" onAction="#changeStatus" text="Skift status" />
-      <Label layoutX="198.0" layoutY="28.0" text="Ny status" />
-      <DatePicker fx:id="date" layoutX="361.0" layoutY="45.0" prefHeight="25.0" prefWidth="131.0" />
+      <Button fx:id="changeStatusBtn" layoutX="510.0" layoutY="104.0" mnemonicParsing="false" onAction="#changeStatus" text="Change status" />
+      <Label layoutX="198.0" layoutY="87.0" text="New status" />
+      <DatePicker fx:id="date" layoutX="361.0" layoutY="104.0" prefHeight="25.0" prefWidth="131.0" />
       <ProgressBar fx:id="gtiUpdateProgressBar" layoutX="217.0" layoutY="194.0" prefHeight="18.0" prefWidth="450.0" progress="0.0" visible="false" />
    </children>
 </AnchorPane>
