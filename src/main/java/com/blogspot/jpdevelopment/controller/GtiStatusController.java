@@ -18,7 +18,7 @@ public class GtiStatusController {
 	@FXML
 	private DatePicker date;
 	@FXML
-	private ProgressBar gtiUpdateProgressBar;
+	private ProgressIndicator statusUpdateIndicator;
 	@FXML
 	private TextField serverName;
 	@FXML
@@ -27,17 +27,25 @@ public class GtiStatusController {
 	private PasswordField password;
 	
 	public void changeStatus(ActionEvent actionEvent) throws Exception {
+		statusUpdateIndicator.setVisible(true);
 		Platform.runLater(() -> {
 			try {
 				if (validInvocation()) {
-					gtiUpdateProgressBar.setVisible(true);
-					gtiUpdateProgressBar.setProgress(0.5D);
 					GtiChangeStatus gtiChangeStatus = new GtiChangeStatus();
 					gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue(), serverName.getText(), username.getText(), password.getText());
-					gtiUpdateProgressBar.setVisible(false);
+					Thread.sleep(5000L);
+					Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
+					dialog.setHeaderText("Status update complete");
+					dialog.setContentText("GTI interessent with id " + gtiIntr.getText() + " has changed status to " + newStatus.getValue().getValue());
+					dialog.show();
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Error updating status");
+				dialog.setContentText("Error message: " + e.getMessage());
+				dialog.show();
+			} finally {
+				statusUpdateIndicator.setVisible(false);
 			}
 		});
 	}
@@ -48,20 +56,20 @@ public class GtiStatusController {
 		StringBuilder sb = new StringBuilder();
 		if (gtiIntr.getText().isEmpty()) {
 			validInvocation = false;
-			sb.append("- Du skal indtaste et GTI interessentnummer\n");
+			sb.append("- Missing GTI interessentnummer\n");
 		}
 		if (newStatus.getValue() == null) {
 			validInvocation = false;
-			sb.append("- Du skal vælge en status\n");
+			sb.append("- Choose a status\n");
 		}
 		if (date.getValue() == null) {
 			validInvocation = false;
-			sb.append("- Du skal vælge en dato");
+			sb.append("- Pick an event dato");
 		}
 		
 		if (!validInvocation) {
 			Alert dialog = new Alert(Alert.AlertType.WARNING);
-			dialog.setHeaderText("Manglende informationer");
+			dialog.setHeaderText("Missing information");
 			dialog.setContentText(sb.toString());
 			dialog.show();
 		}

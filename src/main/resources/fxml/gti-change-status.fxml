@@ -70,5 +70,6 @@
                 </GridPane>
             </content>
         </TitledPane>
+      <ProgressIndicator layoutX="428.0" layoutY="366.0" progress="0.0" fx:id="statusUpdateIndicator" />
     </children>
 </AnchorPane>
