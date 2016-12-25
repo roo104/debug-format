@@ -1,5 +1,6 @@
 package com.blogspot.jpdevelopment;
 
+import com.jcabi.manifests.*;
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -8,13 +9,16 @@ import javafx.stage.*;
 public class Main extends Application {
 	
 	public static void main(String[] args) {
-        launch(args);
+		launch(args);
 	}
 	
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		String version = Manifests.read("Specification-Version");
+		
 		Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-		stage.setTitle("Management console");
+		stage.setTitle("Management console - " + version);
 		stage.setScene(new Scene(root, 1000, 800));
 		stage.setResizable(false);
 		stage.show();

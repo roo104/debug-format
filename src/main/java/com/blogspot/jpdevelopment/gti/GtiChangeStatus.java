@@ -3,8 +3,8 @@
  */
 package com.blogspot.jpdevelopment.gti;
 
+import com.blogspot.jpdevelopment.batch.*;
 import com.blogspot.jpdevelopment.util.*;
-import com.schantz.toplife.ws.batch.*;
 
 import java.io.*;
 import java.sql.*;
