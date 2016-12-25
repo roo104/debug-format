@@ -15,16 +15,16 @@ public class GtiChangeStatus {
 	
 	private static String DATE_FORAMT = "yyyyMMdd";
 	
-	public void changeStatus(String gtiIntr, String status, LocalDate date) throws Exception {
+	public void changeStatus(String gtiIntr, String status, LocalDate date, final String serverName, String username, String password) throws Exception {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		String url = "jdbc:sqlserver://localhost:1433;databaseName=TopLife";
+		String url = "jdbc:sqlserver://" + serverName + ":1433;databaseName=TopLife";
 		String sql = "SELECT bjfd_input.uid, bjfd_root.name, bjfd_input.name\n" +
 				"FROM BatchJobFileDir bjfd_root\n" +
 				"LEFT JOIN BatchJobFileDir bjfd_input ON bjfd_root.uid = bjfd_input.parent_uid\n" +
 				"WHERE bjfd_root.name = 'GTISkiftStatus' and bjfd_input.name = 'input'";
 		
-		Connection connection = DriverManager.getConnection(url, "sa", "robertrobot");
+		Connection connection = DriverManager.getConnection(url, username, password);
 		ResultSet resultSet = connection.createStatement().executeQuery(sql);
 		
 		String parentFolderUid = "";
@@ -35,7 +35,7 @@ public class GtiChangeStatus {
 		String fileContent = createFileContent(gtiIntr, status, date);
 		
 		
-		String insertDir = "INSERT INTO TopLife.dbo.BatchJobFileDir " +
+		String insertDir = "INSERT INTO BatchJobFileDir " +
 				"(DTYPE, uid, createTime, createUser, directory, name, size, zip, batchJobEIOperation_uid, parent_uid) " +
 				"VALUES " +
 				"('BatchJobFileDir', ?, ?, 'admin@schantz.com', 0, ?, ?, 0, null, ?)";
@@ -50,7 +50,7 @@ public class GtiChangeStatus {
 		
 		statement.executeUpdate();
 		
-		String insertFile = "INSERT INTO TopLife.dbo.BatchJobData (DTYPE, uid, createTime, createUser, data, batchJobFileDir_uid) VALUES ('BatchJobData', ?, ?, 'admin@schantz.com', ?, ?);";
+		String insertFile = "INSERT INTO BatchJobData (DTYPE, uid, createTime, createUser, data, batchJobFileDir_uid) VALUES ('BatchJobData', ?, ?, 'admin@schantz.com', ?, ?);";
 		PreparedStatement insertFileStatement = connection.prepareStatement(insertFile);
 		insertFileStatement.setString(1, Guid.create().toString());
 		insertFileStatement.setTimestamp(2, DateUtils.asSqlDateTime(LocalDateTime.now()));

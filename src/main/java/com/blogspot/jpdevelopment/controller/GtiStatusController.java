@@ -19,6 +19,12 @@ public class GtiStatusController {
 	private DatePicker date;
 	@FXML
 	private ProgressBar gtiUpdateProgressBar;
+	@FXML
+	private TextField serverName;
+	@FXML
+	private TextField username;
+	@FXML
+	private PasswordField password;
 	
 	public void changeStatus(ActionEvent actionEvent) throws Exception {
 		Platform.runLater(() -> {
@@ -27,7 +33,7 @@ public class GtiStatusController {
 					gtiUpdateProgressBar.setVisible(true);
 					gtiUpdateProgressBar.setProgress(0.5D);
 					GtiChangeStatus gtiChangeStatus = new GtiChangeStatus();
-					gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue());
+					gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue(), serverName.getText(), username.getText(), password.getText());
 					gtiUpdateProgressBar.setVisible(false);
 				}
 			} catch (Exception e) {
