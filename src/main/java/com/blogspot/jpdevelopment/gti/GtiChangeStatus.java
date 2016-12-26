@@ -7,6 +7,7 @@ import com.blogspot.jpdevelopment.batch.*;
 import com.blogspot.jpdevelopment.util.*;
 
 import java.io.*;
+import java.net.*;
 import java.sql.*;
 import java.time.*;
 import java.time.format.*;
@@ -15,16 +16,16 @@ public class GtiChangeStatus {
 	
 	private static String DATE_FORAMT = "yyyyMMdd";
 	
-	public void changeStatus(String gtiIntr, String status, LocalDate date, final String serverName, String username, String password) throws Exception {
+	public void changeStatus(GtiStatusChange gtiStatusChange) throws Exception {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		String url = "jdbc:sqlserver://" + serverName + ":1433;databaseName=TopLife";
+		String url = "jdbc:sqlserver://" + gtiStatusChange.getServerName() + ":1433;databaseName=" + gtiStatusChange.getDatabaseName();
 		String sql = "SELECT bjfd_input.uid, bjfd_root.name, bjfd_input.name\n" +
 				"FROM BatchJobFileDir bjfd_root\n" +
 				"LEFT JOIN BatchJobFileDir bjfd_input ON bjfd_root.uid = bjfd_input.parent_uid\n" +
 				"WHERE bjfd_root.name = 'GTISkiftStatus' and bjfd_input.name = 'input'";
 		
-		Connection connection = DriverManager.getConnection(url, username, password);
+		Connection connection = DriverManager.getConnection(url, gtiStatusChange.getUsername(), gtiStatusChange.getPassword());
 		ResultSet resultSet = connection.createStatement().executeQuery(sql);
 		
 		String parentFolderUid = "";
@@ -32,7 +33,7 @@ public class GtiChangeStatus {
 		if (resultSet.next()) {
 			parentFolderUid = resultSet.getString(1);
 		}
-		String fileContent = createFileContent(gtiIntr, status, date);
+		String fileContent = createFileContent(gtiStatusChange.getGtiIntr(), gtiStatusChange.getStatus(), gtiStatusChange.getDate());
 		
 		
 		String insertDir = "INSERT INTO BatchJobFileDir " +
@@ -59,7 +60,7 @@ public class GtiChangeStatus {
 		
 		insertFileStatement.executeUpdate();
 		
-		BatchJobServiceService batchJobServiceService = new BatchJobServiceService();
+		BatchJobServiceService batchJobServiceService = new BatchJobServiceService(new URL(gtiStatusChange.getWsHostname() + "/services/toplife/ws/batch/BatchJobServicePort?wsdl"));
 		BatchJobService servicePort = batchJobServiceService.getBatchJobServicePort();
 		servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
 	}

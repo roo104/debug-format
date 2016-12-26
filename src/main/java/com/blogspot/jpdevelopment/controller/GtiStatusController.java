@@ -22,6 +22,8 @@ public class GtiStatusController {
 	@FXML
 	private TextField serverName;
 	@FXML
+	private TextField databaseName;
+	@FXML
 	private TextField username;
 	@FXML
 	private PasswordField password;
@@ -32,7 +34,7 @@ public class GtiStatusController {
 			try {
 				if (validInvocation()) {
 					GtiChangeStatus gtiChangeStatus = new GtiChangeStatus();
-					gtiChangeStatus.changeStatus(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue(), serverName.getText(), username.getText(), password.getText());
+					gtiChangeStatus.changeStatus(new GtiStatusChange(gtiIntr.getText(), newStatus.getValue().getValue(), date.getValue(), serverName.getText(), username.getText(), password.getText(), databaseName.getText(), "http://localhost:9000"));
 					Thread.sleep(5000L);
 					Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
 					dialog.setHeaderText("Status update complete");

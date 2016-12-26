@@ -62,14 +62,16 @@
                     <children>
                         <Label text="Server address" />
                         <TextField fx:id="serverName" text="localhost" GridPane.columnIndex="1" />
-                        <Label text="Username" GridPane.rowIndex="1" />
-                        <Label text="Password" GridPane.rowIndex="2" />
-                        <TextField fx:id="username" text="sa" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <PasswordField fx:id="password" text="robertrobot" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Username" GridPane.rowIndex="2" />
+                        <Label text="Password" GridPane.rowIndex="3" />
+                        <TextField fx:id="username" text="sa" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <PasswordField fx:id="password" text="robertrobot" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="databaseName" text="TopLife" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Database name" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </content>
         </TitledPane>
-      <ProgressIndicator layoutX="428.0" layoutY="366.0" progress="0.0" fx:id="statusUpdateIndicator" />
+      <ProgressIndicator fx:id="statusUpdateIndicator" layoutX="428.0" layoutY="366.0" progress="0.0" />
     </children>
 </AnchorPane>
