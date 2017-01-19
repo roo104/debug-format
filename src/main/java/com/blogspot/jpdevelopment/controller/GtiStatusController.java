@@ -71,7 +71,7 @@ public class GtiStatusController implements Initializable {
 		}
 		if (date.getValue() == null) {
 			validInvocation = false;
-			sb.append("- Pick an event dato");
+			sb.append("- Pick an event date");
 		}
 		
 		if (!validInvocation) {
