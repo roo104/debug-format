@@ -81,7 +81,7 @@
                                     <wsdlOptions>
                                         <wsdlOption>
                                             <wsdl>
-                                                http://localhost:9000/services/toplife/ws/com.blogspot.jpdevelopment.batch/BatchJobServicePort?wsdl
+                                                http://localhost:9000/services/toplife/ws/batch/BatchJobServicePort?wsdl
                                             </wsdl>
                                         </wsdlOption>
                                     </wsdlOptions>

@@ -3,13 +3,17 @@
  */
 package com.blogspot.jpdevelopment.controller;
 
+import java.net.*;
+import java.time.*;
+import java.util.*;
+
 import com.blogspot.jpdevelopment.gti.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 
-public class GtiStatusController {
+public class GtiStatusController implements Initializable {
 	
 	@FXML
 	private TextField gtiIntr;
@@ -17,8 +21,6 @@ public class GtiStatusController {
 	private ChoiceBox<GtiStatus> newStatus;
 	@FXML
 	private DatePicker date;
-	@FXML
-	private ProgressIndicator statusUpdateIndicator;
 	@FXML
 	private TextField serverName;
 	@FXML
@@ -28,8 +30,12 @@ public class GtiStatusController {
 	@FXML
 	private PasswordField password;
 	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		date.setValue(LocalDate.now());
+	}
+	
 	public void changeStatus(ActionEvent actionEvent) throws Exception {
-		statusUpdateIndicator.setVisible(true);
 		Platform.runLater(() -> {
 			try {
 				if (validInvocation()) {
@@ -38,16 +44,15 @@ public class GtiStatusController {
 					Thread.sleep(5000L);
 					Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
 					dialog.setHeaderText("Status update complete");
-					dialog.setContentText("GTI interessent with id " + gtiIntr.getText() + " has changed status to " + newStatus.getValue().getValue());
+					dialog.setContentText("GTI interessent with id " + gtiIntr.getText() + " has changed status to " + newStatus.getValue().getName());
 					dialog.show();
 				}
 			} catch (Exception e) {
+				System.err.println(e);
 				Alert dialog = new Alert(Alert.AlertType.ERROR);
 				dialog.setHeaderText("Error updating status");
 				dialog.setContentText("Error message: " + e.getMessage());
 				dialog.show();
-			} finally {
-				statusUpdateIndicator.setVisible(false);
 			}
 		});
 	}

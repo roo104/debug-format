@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.72">
    <children>
       <Pane layoutX="60.0" layoutY="63.0" prefHeight="483.0" prefWidth="500.0">
          <children>
-            <TitledPane animated="false" layoutX="26.0" layoutY="81.0" text="untitled">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" layoutX="268.0" layoutY="81.0" text="untitled">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
+
          </children>
       </Pane>
    </children>

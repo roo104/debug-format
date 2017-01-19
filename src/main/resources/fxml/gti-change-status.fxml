@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.72" fx:controller="com.blogspot.jpdevelopment.controller.GtiStatusController">
     <children>
-        <ProgressBar fx:id="gtiUpdateProgressBar" layoutX="217.0" layoutY="194.0" prefHeight="18.0" prefWidth="450.0" progress="0.0" visible="false" />
         <TitledPane animated="false" collapsible="false" layoutX="50.0" layoutY="50.0" text="Information">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -40,7 +39,7 @@
                         <Label text="New status" GridPane.rowIndex="1" />
                         <DatePicker fx:id="date" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Button fx:id="changeStatusBtn" mnemonicParsing="false" onAction="#changeStatus" text="Change status" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.rowIndex="2" />
+                        <Label text="Event date" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
 
@@ -72,6 +71,5 @@
                 </GridPane>
             </content>
         </TitledPane>
-      <ProgressIndicator fx:id="statusUpdateIndicator" layoutX="428.0" layoutY="366.0" progress="0.0" />
     </children>
 </AnchorPane>

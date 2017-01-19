@@ -69,7 +69,7 @@
                   <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
                   <wsdlOptions>
                     <wsdlOption>
-                      <wsdl>http://localhost:9000/services/toplife/ws/com.blogspot.jpdevelopment.batch/BatchJobServicePort?wsdl</wsdl>
+                      <wsdl>http://localhost:9000/services/toplife/ws/batch/BatchJobServicePort?wsdl</wsdl>
                     </wsdlOption>
                   </wsdlOptions>
                 </configuration>

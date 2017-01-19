@@ -1,7 +1,6 @@
 package com.blogspot.jpdevelopment.batch;
 
 import javax.jws.*;
-import javax.xml.bind.annotation.*;
 import javax.xml.ws.*;
 
 /**
@@ -11,7 +10,6 @@ import javax.xml.ws.*;
  * 
  */
 @WebService(targetNamespace = "http://batch.ws.toplife.schantz.com/", name = "BatchJobService")
-@XmlSeeAlso({ObjectFactory.class})
 public interface BatchJobService {
 
     @WebMethod

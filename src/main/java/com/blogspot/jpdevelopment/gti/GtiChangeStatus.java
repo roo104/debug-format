@@ -3,14 +3,14 @@
  */
 package com.blogspot.jpdevelopment.gti;
 
-import com.blogspot.jpdevelopment.batch.*;
-import com.blogspot.jpdevelopment.util.*;
-
 import java.io.*;
 import java.net.*;
 import java.sql.*;
 import java.time.*;
 import java.time.format.*;
+
+import com.blogspot.jpdevelopment.batch.*;
+import com.blogspot.jpdevelopment.util.*;
 
 public class GtiChangeStatus {
 	
@@ -62,7 +62,7 @@ public class GtiChangeStatus {
 		
 		BatchJobServiceService batchJobServiceService = new BatchJobServiceService(new URL(gtiStatusChange.getWsHostname() + "/services/toplife/ws/batch/BatchJobServicePort?wsdl"));
 		BatchJobService servicePort = batchJobServiceService.getBatchJobServicePort();
-		servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
+		BatchJobStartResult batchJobStartResult = servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
 	}
 	
 	private String createFileContent(String gtiIntr, String status, LocalDate date) {
