@@ -15,7 +15,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		String version = Manifests.read("Specification-Version");
+		String version = "";
+		try {
+			version = Manifests.read("Management-Version");
+		} catch (Exception e) {
+			
+		}
 		
 		Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
 		stage.setTitle("Management console - " + version);

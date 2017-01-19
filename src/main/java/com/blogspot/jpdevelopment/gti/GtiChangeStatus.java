@@ -10,6 +10,7 @@ import java.time.*;
 import java.time.format.*;
 
 import com.blogspot.jpdevelopment.batch.*;
+import com.blogspot.jpdevelopment.settings.*;
 import com.blogspot.jpdevelopment.util.*;
 
 public class GtiChangeStatus {
@@ -19,13 +20,15 @@ public class GtiChangeStatus {
 	public void changeStatus(GtiStatusChange gtiStatusChange) throws Exception {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		String url = "jdbc:sqlserver://" + gtiStatusChange.getServerName() + ":1433;databaseName=" + gtiStatusChange.getDatabaseName();
+		Settings settings = Settings.getInstance();
+		
+		String url = "jdbc:sqlserver://" + settings.getServerName() + ":1433;databaseName=" + settings.getDatabaseName();
 		String sql = "SELECT bjfd_input.uid, bjfd_root.name, bjfd_input.name\n" +
 				"FROM BatchJobFileDir bjfd_root\n" +
 				"LEFT JOIN BatchJobFileDir bjfd_input ON bjfd_root.uid = bjfd_input.parent_uid\n" +
 				"WHERE bjfd_root.name = 'GTISkiftStatus' and bjfd_input.name = 'input'";
 		
-		Connection connection = DriverManager.getConnection(url, gtiStatusChange.getUsername(), gtiStatusChange.getPassword());
+		Connection connection = DriverManager.getConnection(url, settings.getUsername(), settings.getPassword());
 		ResultSet resultSet = connection.createStatement().executeQuery(sql);
 		
 		String parentFolderUid = "";
@@ -60,9 +63,9 @@ public class GtiChangeStatus {
 		
 		insertFileStatement.executeUpdate();
 		
-		BatchJobServiceService batchJobServiceService = new BatchJobServiceService(new URL(gtiStatusChange.getWsHostname() + "/services/toplife/ws/batch/BatchJobServicePort?wsdl"));
+		BatchJobServiceService batchJobServiceService = new BatchJobServiceService(new URL(settings.getWsEndpoint() + "/services/toplife/ws/batch/BatchJobServicePort?wsdl"));
 		BatchJobService servicePort = batchJobServiceService.getBatchJobServicePort();
-		BatchJobStartResult batchJobStartResult = servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
+		servicePort.startBatchJob("1", "GTI: GTISkiftStatus");
 	}
 	
 	private String createFileContent(String gtiIntr, String status, LocalDate date) {
